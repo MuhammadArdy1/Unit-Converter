@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniConvert — Unit Converter</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⟳</span>
+        <span class="logo-text">Uni<span class="logo-accent">Convert</span></span>
+      </div>
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-layout">
+
+    <!-- SIDEBAR KATEGORI -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-title">Kategori</div>
+      <nav class="category-nav" id="categoryNav">
+        <button class="cat-btn active" data-cat="length">
+          <span class="cat-icon">📏</span>
+          <span>Panjang</span>
+        </button>
+        <button class="cat-btn" data-cat="weight">
+          <span class="cat-icon">⚖️</span>
+          <span>Berat</span>
+        </button>
+        <button class="cat-btn" data-cat="temperature">
+          <span class="cat-icon">🌡️</span>
+          <span>Suhu</span>
+        </button>
+        <button class="cat-btn" data-cat="area">
+          <span class="cat-icon">📐</span>
+          <span>Luas</span>
+        </button>
+        <button class="cat-btn" data-cat="volume">
+          <span class="cat-icon">🧪</span>
+          <span>Volume</span>
+        </button>
+        <button class="cat-btn" data-cat="speed">
+          <span class="cat-icon">⚡</span>
+          <span>Kecepatan</span>
+        </button>
+        <button class="cat-btn" data-cat="data">
+          <span class="cat-icon">💾</span>
+          <span>Data</span>
+        </button>
+        <button class="cat-btn" data-cat="time">
+          <span class="cat-icon">⏱️</span>
+          <span>Waktu</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-history">
+        <div class="history-title">
+          <span>Riwayat</span>
+          <button class="clear-history" id="clearHistory">Hapus</button>
+        </div>
+        <ul class="history-list" id="historyList">
+          <li class="history-empty">Belum ada riwayat</li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONVERTER -->
+    <main class="main-content">
+      <!-- Category Badge -->
+      <div class="category-badge" id="categoryBadge">
+        <span id="badgeIcon">📏</span>
+        <span id="badgeName">Panjang</span>
+      </div>
+
+      <!-- Converter Card -->
+      <div class="converter-card">
+
+        <!-- FROM -->
+        <div class="input-group">
+          <label class="input-label">Dari</label>
+          <div class="input-row">
+            <input
+              type="number"
+              class="value-input"
+              id="fromValue"
+              placeholder="0"
+              autocomplete="off"
+            />
+            <select class="unit-select" id="fromUnit"></select>
+          </div>
+        </div>
+
+        <!-- SWAP BUTTON -->
+        <div class="swap-row">
+          <div class="divider-line"></div>
+          <button class="swap-btn" id="swapBtn" title="Tukar satuan">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 16V4m0 0L3 8m4-4l4 4"/>
+              <path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
+            </svg>
+          </button>
+          <div class="divider-line"></div>
+        </div>
+
+        <!-- TO -->
+        <div class="input-group">
+          <label class="input-label">Ke</label>
+          <div class="input-row">
+            <div class="result-display" id="toValue">0</div>
+            <select class="unit-select" id="toUnit"></select>
+          </div>
+        </div>
+
+        <!-- RESULT FORMULA -->
+        <div class="formula-box" id="formulaBox">
+          <span id="formulaText">Masukkan angka untuk melihat konversi</span>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="action-row">
+          <button class="action-btn copy-btn" id="copyBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Salin Hasil
+          </button>
+          <button class="action-btn reset-btn" id="resetBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="1 4 1 10 7 10"/>
+              <path d="M3.51 15a9 9 0 1 0 .49-5.09"/>
+            </svg>
+            Reset
+          </button>
+        </div>
+
+        <!-- TOAST -->
+        <div class="toast" id="toast">✓ Disalin!</div>
+      </div>
+
+      <!-- ALL UNITS REFERENCE -->
+      <div class="all-units-card" id="allUnitsCard">
+        <div class="all-units-title">Semua Konversi dari <span id="allUnitsFrom">—</span></div>
+        <div class="all-units-grid" id="allUnitsGrid"></div>
+      </div>
+    </main>
+
+    <!-- MOBILE NAV TOGGLE -->
+    <button class="mobile-cat-toggle" id="mobileCatToggle">
+      ☰ Kategori
+    </button>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
